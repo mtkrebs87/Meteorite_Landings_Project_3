@@ -1,21 +1,27 @@
-// var meteorIcon = L.icon({
-//     iconUrl: 'Icons/meteor.png',
-// //    shadowUrl: '',
-//     iconSize:     [38, 95], // size of the icon
-//  //   shadowSize:   [50, 64], // size of the shadow
-//     iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-//  //   shadowAnchor: [4, 62],  // the same for the shadow
-//     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-// });
-// var foundIcon = L.icon({
-//     iconUrl: 'Icons/found.png',
-// //    shadowUrl: '',
-//     iconSize:     [38, 95], // size of the icon
-//  //   shadowSize:   [50, 64], // size of the shadow
-//     iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-// //    shadowAnchor: [4, 62],  // the same for the shadow
-//     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-// });
+var meteorIcon = L.icon({
+    iconUrl: 'Icons/meteor.png',
+//    shadowUrl: '',
+
+    iconSize:     [38, 95], // size of the icon
+ //   shadowSize:   [50, 64], // size of the shadow
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+ //   shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
+var foundIcon = L.icon({
+    iconUrl: 'Icons/found.png',
+//    shadowUrl: '',
+
+    iconSize:     [38, 95], // size of the icon
+ //   shadowSize:   [50, 64], // size of the shadow
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+//    shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
+// placeholder function for data loading
+// michael and brian, this needs your magic to bring in the real data
 
 // Store the API variables
 let baseURL = "https://data.nasa.gov/api/views/gh4g-9sfh/rows.json?accessType=DOWNLOAD";
@@ -24,7 +30,7 @@ let fall = "&fall=Found";
 let year = "&year=";
 
 
-//Years to show markers
+//Year to show markers
 const yearsToShow = [1983, 1993, 2003, 2013, 2023];
 const years1983to2023 = Array.from({ length: 2023 - 1983 + 1 }, (_, index) => 1983 + index);
 
@@ -50,20 +56,10 @@ function loadDataForYear(selectedYear) {
     d3.json(dynamicURL).then(function(response) {
         console.log("Data fetched successfully:", response);
 
-        // Ensure markerLayerGroup is defined
-        if (!markerLayerGroup) {
-            markerLayerGroup = L.layerGroup().addTo(myMap);
-        } else {
-            // Clear existing markers from the layer group
-            markerLayerGroup.clearLayers();
-        }
-
         let markers = [];
         let mapData = response.data;
 
-        //Limit number of markers per year (100)
-        const maxMarkersPerYear = 100;
-        for (let i = 0; i < Math.min(maxMarkersPerYear, mapData.length); i++) {
+        for (let i = 0; i < mapData.length; i++) {
             let location = mapData[i];
             let lat = location[15];
             let lon = location[16];
@@ -73,18 +69,19 @@ function loadDataForYear(selectedYear) {
             }
         }
 
-        // Add the new markers to the layer group
-        markers.forEach(marker => {
-            markerLayerGroup.addLayer(marker);
-        });
+        // Clear markers
+        if (markerLayerGroup) {
+            markerLayerGroup.clearLayers();
+        }
 
-        // debug line, can be ditched later
+        markerLayerGroup = L.layerGroup(markers);
+        markerLayerGroup.addTo(baseMap);
+
         console.log("Markers added to the map.");
-    })
-    .catch(function(error) {
-        console.error("Error fetching data:", error);
     });
-    
+
+    // debug line, can be ditched later
+    // console.log("load and display data for the year:", year);
     // todo: flesh out the data handling
     // the steps are:
     // 1. get the data, maybe from a json or csv?
@@ -125,27 +122,19 @@ function setupDropdown() {
 // it tells 'loadDataForYear' what to do next
 function handleYearChange(event) {
     const selectedYear = event.target.value;
-
-    // Clear existing markers when the year is changed
-    if (markerLayerGroup) {
-        markerLayerGroup.clearLayers();
-    }
     loadDataForYear(selectedYear);
 
 }
+
 // the main kickoff function
 // gets the map and dropdown ready, and loads initial data
 function init() {
     initMap();
     setupDropdown();
-
-    loadDataForYear('all').then(() => {
-
-    });
     //Loop through years and load data for each
-    // for (const yearToShow of yearsToShow) {
-    //     loadDataForYear(yearToShow);
-    // }
+    for (const yearToShow of yearsToShow) {
+        loadDataForYear(yearToShow);
+    }
 }
 // when the page loads, we start here
 window.onload = function() {
