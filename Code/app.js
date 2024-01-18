@@ -1,4 +1,24 @@
-<<<<<<< Updated upstream
+var meteorIcon = L.icon({
+    iconUrl: 'Icons/meteor.png',
+//    shadowUrl: '',
+
+    iconSize:     [38, 95], // size of the icon
+ //   shadowSize:   [50, 64], // size of the shadow
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+ //   shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
+var foundIcon = L.icon({
+    iconUrl: 'Icons/found.png',
+//    shadowUrl: '',
+
+    iconSize:     [38, 95], // size of the icon
+ //   shadowSize:   [50, 64], // size of the shadow
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+//    shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
 // placeholder function for data loading
 // michael and brian, this needs your magic to bring in the real data
 function loadDataForYear(year) {
@@ -77,7 +97,7 @@ function loadDataForYear(selectedYear) {
 
         console.log("Markers added to the map.");
     });
->>>>>>> Stashed changes
+
     // debug line, can be ditched later
     // console.log("load and display data for the year:", year);
     // todo: flesh out the data handling
