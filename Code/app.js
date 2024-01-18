@@ -20,6 +20,11 @@ var foundIcon = L.icon({
     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
 });
 
+function createMarkers(data) {
+    //console.log("The year is ", year);
+    console.log(data);
+}
+
 // placeholder function for data loading
 // michael and brian, this needs your magic to bring in the real data
 function loadDataForYear(year) {
@@ -29,6 +34,7 @@ function loadDataForYear(year) {
     // todo: flesh out the data handling
     // the steps are:
     // 1. get the data, maybe from a json or csv?
+    fetch("../meteorite 1983-2023.json").then(createMarkers);
     // 2. if 'year' is not 'all', filter the data to just that year
     // 3. wipe the old data off the map before adding new stuff
     // 4. plot the new data points on the map
