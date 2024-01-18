@@ -25,8 +25,8 @@ let year = "&year=";
 
 
 //Years to show markers
-const yearsToShow = [1983, 1993, 2003, 2013, 2023];
-const years1983to2023 = Array.from({ length: 2023 - 1983 + 1 }, (_, index) => 1983 + index);
+// const yearsToShow = [1983, 1993, 2003, 2013, 2023];
+// const years1983to2023 = Array.from({ length: 2023 - 1983 + 1 }, (_, index) => 1983 + index);
 
 
 //Declare markerLayerGroup
