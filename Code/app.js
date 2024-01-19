@@ -84,7 +84,7 @@ function loadDataForYear(selectedYear) { // 'all', '1983', '1993'
             });
         }
         console.log("mapData: ", mapData[1]);
-        //Limit number of markers per year (100)
+        //Limit number of markers per year (20000)
         const maxMarkersPerYear = 20000;
         for (let i = 0; i < Math.min(maxMarkersPerYear, mapData.length); i++) {
             let location = mapData[i];

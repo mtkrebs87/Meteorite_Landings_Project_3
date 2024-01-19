@@ -9,8 +9,40 @@ fetch("meteorite_1983_2023.json")
 })
 .then(function(data){
   console.log(data);
-  createChart(data, 'bar');
+  // createChart(data, 'bar');
+  aggregateData(data);
 });
+
+
+function aggregateData(rawData){
+  var yearArray=rawData.map(obs=>obs['year']);
+  var countObj={}
+  yearArray.forEach(function(oneYear){
+    if (countObj[oneYear]){
+      countObj[oneYear]++;
+    } else {
+      countObj[oneYear]=1
+    }
+  })
+  // console.log(countObj);
+  countArray=Object.keys(countObj).map(function(year){
+    return {'year': year, 'numberOfMeteorites': countObj[year]}
+  });
+  // console.log(countArray);
+  createChart(countArray, 'bar');
+}
+// let obj = {};
+// data.forEach(d => {
+//   obj[d.year.name] = obj[d.year.name] || 0;
+//   obj[d.year.name]++;
+// });
+
+// let aggregatedData = Object.keys(obj).map(year => ({
+//   projectName: year,
+//   count: obj[year]
+// }));
+// console.log(aggregatedData);
+
 
 // Create the chart to display
 function createChart(data, type){
