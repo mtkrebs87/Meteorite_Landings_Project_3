@@ -36,14 +36,17 @@ let markerLayerGroup;
 var baseMap = initMap();
 
 // Function to load data for specific year
-function loadDataForYear(selectedYear) {
+function loadDataForYear(selectedYear) { // 'all', '1983', '1993'
     // Fetch and filter data based on the selected year or range
     let dynamicURL = baseURL + fell + fall;
 
-    if (selectedYear !== 'all') {
+    // if (selectedYear !== 'all') {
         // If selected year isn't 'all', then fetch data for that year
-        dynamicURL += year + selectedYear;
-    }
+        // dynamicURL += year + selectedYear;
+    // }
+
+    //d3.select('#year-selector').property('value')
+    dynamicURL += year + selectedYear;
 
     console.log("Fetching data from:", dynamicURL);
 
@@ -61,8 +64,28 @@ function loadDataForYear(selectedYear) {
         let markers = [];
         let mapData = response.data;
 
+        // testing smaller set
+        // mapData=mapData.slice(0, 20);
+
+        // Filter data based on the selected year
+        if (selectedYear !== 'all') {
+            mapData = mapData.filter(entry => {
+                // Assuming the year information is at a specific index in the data array
+                const timeStamp = entry[14];
+                if (timeStamp) {
+                    entryYear=timeStamp.substring(0, 4);
+                    return entryYear === selectedYear;
+                } else {
+                    return false;
+                }
+                // console.log('Selected Year:', selectedYear);
+                // console.log('Entry Year', entryYear);
+
+            });
+        }
+
         //Limit number of markers per year (100)
-        const maxMarkersPerYear = 100;
+        const maxMarkersPerYear = 10000;
         for (let i = 0; i < Math.min(maxMarkersPerYear, mapData.length); i++) {
             let location = mapData[i];
             let lat = location[15];
