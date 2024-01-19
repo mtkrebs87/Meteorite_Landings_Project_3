@@ -96,7 +96,13 @@ function loadDataForYear(selectedYear) { // 'all', '1983', '1993'
                          + "<br>Mass(g): " + location[12]
                          + "<br>Fell or Found: " + location[13]
                          + "<br>Latitude: " + location[15]
-                         + "<br>Longitude: " + location[16]);
+                         + "<br>Longitude: " + location[16])
+                .on('mouseover', function () {
+                     this.openPopup();
+                })
+                .on('mouseout', function () {
+                    this.closePopup();
+                });
                 markers.push(marker);
             }
         }
