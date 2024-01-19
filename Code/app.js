@@ -1,12 +1,12 @@
-// var meteorIcon = L.icon({
-//     iconUrl: 'Icons/meteor.png',
+ var meteorIcon = L.icon({
+     iconUrl: 'Icons/meteor.png',
 // //    shadowUrl: '',
-//     iconSize:     [38, 95], // size of the icon
+     iconSize:     [38, 35], // size of the icon
 //  //   shadowSize:   [50, 64], // size of the shadow
-//     iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+     iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
 //  //   shadowAnchor: [4, 62],  // the same for the shadow
-//     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-// });
+     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+ });
 // var foundIcon = L.icon({
 //     iconUrl: 'Icons/found.png',
 // //    shadowUrl: '',
@@ -91,7 +91,7 @@ function loadDataForYear(selectedYear) { // 'all', '1983', '1993'
             let lat = location[15];
             let lon = location[16];
             if (lat && lon) {
-                let marker = L.marker([parseFloat(lat), parseFloat(lon)]);
+                let marker = L.marker([parseFloat(lat), parseFloat(lon)], {icon: meteorIcon});
                 markers.push(marker);
             }
         }
