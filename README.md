@@ -1,8 +1,8 @@
 # Meteorite_Landings_Project_3 Group Project 3
-Lauren Pescarus
-Brian Mitchell
-Liana Hamacher
-Michael Krebs  
+Lauren Pescarus  
+Brian Mitchell  
+Liana Hamacher  
+Michael Krebs    
 
 
 Project goal: 
