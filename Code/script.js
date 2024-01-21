@@ -13,7 +13,6 @@ fetch("meteorite_1983_2023.json")
   aggregateData(data);
 });
 
-
 function aggregateData(rawData){
   var yearArray=rawData.map(obs=>obs['year']);
   var countObj={}
@@ -31,18 +30,6 @@ function aggregateData(rawData){
   // console.log(countArray);
   createChart(countArray, 'bar');
 }
-// let obj = {};
-// data.forEach(d => {
-//   obj[d.year.name] = obj[d.year.name] || 0;
-//   obj[d.year.name]++;
-// });
-
-// let aggregatedData = Object.keys(obj).map(year => ({
-//   projectName: year,
-//   count: obj[year]
-// }));
-// console.log(aggregatedData);
-
 
 // Create the chart to display
 function createChart(data, type){
