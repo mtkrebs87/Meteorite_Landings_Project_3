@@ -13,7 +13,6 @@ fetch("meteorite_1983_2023.json")
   aggregateData(data);
 });
 
-// Function to create an object to hold counts
 function aggregateData(rawData){
   var yearArray=rawData.map(obs=>obs['year']);
   var countObj={}

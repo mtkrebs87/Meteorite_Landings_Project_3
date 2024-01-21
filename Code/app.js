@@ -1,12 +1,12 @@
-// var meteorIcon = L.icon({
-//     iconUrl: 'Icons/meteor.png',
+ var meteorIcon = L.icon({
+     iconUrl: 'Icons/meteor.png',
 // //    shadowUrl: '',
-//     iconSize:     [38, 95], // size of the icon
+     iconSize:     [38, 35], // size of the icon
 //  //   shadowSize:   [50, 64], // size of the shadow
-//     iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+     iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
 //  //   shadowAnchor: [4, 62],  // the same for the shadow
-//     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-// });
+     popupAnchor:  [10, 20] // point from which the popup should open relative to the iconAnchor
+ });
 // var foundIcon = L.icon({
 //     iconUrl: 'Icons/found.png',
 // //    shadowUrl: '',
@@ -25,8 +25,8 @@ let year = "&year=";
 
 
 //Years to show markers
-const yearsToShow = [1983, 1993, 2003, 2013, 2023];
-const years1983to2023 = Array.from({ length: 2023 - 1983 + 1 }, (_, index) => 1983 + index);
+// const yearsToShow = [1983, 1993, 2003, 2013, 2023];
+// const years1983to2023 = Array.from({ length: 2023 - 1983 + 1 }, (_, index) => 1983 + index);
 
 
 //Declare markerLayerGroup
@@ -36,14 +36,17 @@ let markerLayerGroup;
 var baseMap = initMap();
 
 // Function to load data for specific year
-function loadDataForYear(selectedYear) {
+function loadDataForYear(selectedYear) { // 'all', '1983', '1993'
     // Fetch and filter data based on the selected year or range
     let dynamicURL = baseURL + fell + fall;
 
-    if (selectedYear !== 'all') {
+    // if (selectedYear !== 'all') {
         // If selected year isn't 'all', then fetch data for that year
-        dynamicURL += year + selectedYear;
-    }
+        // dynamicURL += year + selectedYear;
+    // }
+
+    //d3.select('#year-selector').property('value')
+    dynamicURL += year + selectedYear;
 
     console.log("Fetching data from:", dynamicURL);
 
@@ -61,14 +64,45 @@ function loadDataForYear(selectedYear) {
         let markers = [];
         let mapData = response.data;
 
-        //Limit number of markers per year (100)
-        const maxMarkersPerYear = 100;
+        // testing smaller set
+        // mapData=mapData.slice(0, 20);
+
+        // Filter data based on the selected year
+        if (selectedYear !== 'all') {
+            mapData = mapData.filter(entry => {
+                // Assuming the year information is at a specific index in the data array
+                const timeStamp = entry[14];
+                if (timeStamp) {
+                    entryYear=timeStamp.substring(0, 4);
+                    return entryYear === selectedYear;
+                } else {
+                    return false;
+                }
+                // console.log('Selected Year:', selectedYear);
+                // console.log('Entry Year', entryYear);
+
+            });
+        }
+        console.log("mapData: ", mapData[1]);
+        //Limit number of markers per year (20000)
+        const maxMarkersPerYear = 20000;
         for (let i = 0; i < Math.min(maxMarkersPerYear, mapData.length); i++) {
             let location = mapData[i];
             let lat = location[15];
             let lon = location[16];
             if (lat && lon) {
-                let marker = L.marker([parseFloat(lat), parseFloat(lon)]);
+                let marker = L.marker([parseFloat(lat), parseFloat(lon)], {icon: meteorIcon})
+                .bindPopup("Name: " + location[8]
+                         + "<br>Mass(g): " + location[12]
+                         + "<br>Fell or Found: " + location[13]
+                         + "<br>Latitude: " + location[15]
+                         + "<br>Longitude: " + location[16])
+                .on('mouseover', function () {
+                     this.openPopup();
+                })
+                .on('mouseout', function () {
+                    this.closePopup();
+                });
                 markers.push(marker);
             }
         }
@@ -80,10 +114,13 @@ function loadDataForYear(selectedYear) {
 
         // debug line, can be ditched later
         console.log("Markers added to the map.");
+
+        
     })
     .catch(function(error) {
         console.error("Error fetching data:", error);
     });
+    
     
     // todo: flesh out the data handling
     // the steps are:
@@ -93,6 +130,7 @@ function loadDataForYear(selectedYear) {
     // 4. plot the new data points on the map
     // note: 'all' means any year from 1983 to 2023
 }
+
 
 // setting up the map here
 var myMap;
@@ -151,6 +189,7 @@ function init() {
 window.onload = function() {
     init();
 };
+
 
 // notes for michael and brian:
 // in 'loadDataForYear', you need to add the actual data fetching and displaying logic
