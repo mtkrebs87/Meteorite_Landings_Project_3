@@ -6,7 +6,7 @@ Michael Krebs
 
 
 ### Project goal   
-The Goal is to analyze and visualize the fluctuations in meteorite landings over the past 20 years, 10 years, and today. The focus will be on understanding how the numbers and sizes of meteorites vary across different geolocations worldwide.  
+The Goal is to analyze and visualize the fluctuations in meteorite landings from 1983 to today. The focus will be on understanding how the numbers and sizes of meteorites vary across different geolocations worldwide.  
 
 ### Interaction    
 To interact with the dashboard, simply choose the appropriate year on the drop down selector. With each year change the user will notice that different meteorite locations populate on the map. If the user hovers over a map icon with the mouse pointer, the user will notice meteorite information show on a popup.  
