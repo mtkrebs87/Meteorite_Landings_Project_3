@@ -31,7 +31,7 @@ script.js / lines 10-31 / Kevin Lee
 
 ### Potential Questions to answer:  
 1.	How many meteorites fallen each year?
-2.	How has the frequency of meteorite landings changed over the past 20 years, 10 years, and today?
+2.	How has the frequency of meteorite landings changed from 1983, 1993, 2003, and 2013?
 3.	Are there specific geolocations that have experienced a significant increase or decrease in meteorite landings?
 4.	Are there any trends or anomalies in the data that stand out during the analysis?
 
