@@ -34,5 +34,8 @@ script.js / lines 10-31 / Kevin Lee
 2.	How has the frequency of meteorite landings changed over the past 20 years, 10 years, and today?
 3.	Are there specific geolocations that have experienced a significant increase or decrease in meteorite landings?
 4.	Are there any trends or anomalies in the data that stand out during the analysis?
+
+### Link to Slide Deck
+https://docs.google.com/presentation/d/1KwH6iMumcmJzG5ZSgM397Y07v9e_C4Dx_Krm6XDmJG4/edit#slide=id.g9110e3ff9a_0_5084
  
 
